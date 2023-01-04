@@ -1070,7 +1070,7 @@ scatter_var_Gibbs <-
   geom_abline(intercept = 0, slope = 1) +
   xlab("True variance of the components") +
   ylab("Sample variance of the components") 
-
+```
 
 
 
