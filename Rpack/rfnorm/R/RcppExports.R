@@ -22,3 +22,15 @@ rcpp_Gibbs_2d <- function(N, x_init, sig1, sig2, rho) {
     .Call(`_rfnorm_rcpp_Gibbs_2d`, N, x_init, sig1, sig2, rho)
 }
 
+#' Generate the Symbolic Matrix for Folded Normal
+#'
+#' @param n dimensions, 1 <= n <= 16
+#' @return matrix of 2^n*n
+rcpp_symbolic_matrix <- function(n) {
+    .Call(`_rfnorm_rcpp_symbolic_matrix`, n)
+}
+
+rcpp_mixing_sample <- function(N, d, pos, x, Sigma) {
+    .Call(`_rfnorm_rcpp_mixing_sample`, N, d, pos, x, Sigma)
+}
+

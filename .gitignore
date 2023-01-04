@@ -6,6 +6,8 @@
 *.so
 *.o
 
+.vscode/
+
 ./test
 ./test/*
 .Rproj.user

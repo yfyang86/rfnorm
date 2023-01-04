@@ -13,5 +13,5 @@ Authors@R: c(
 Description: Gibbs Sampling and Hamiltonian Monte Carlo to derive the Folded Normal random numbers.
 License: Apache 2
 Imports: methods, Rcpp (>= 1.0.9)
-LinkingTo: Rcpp
+LinkingTo: Rcpp, RcppArmadillo
 RoxygenNote: 7.2.1
