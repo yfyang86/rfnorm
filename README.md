@@ -995,6 +995,82 @@ for(j in 1:length(x_init)){
 sum(abs(true_mean - est_mean))/sum(abs(true_mean)) 
 ```
 
+# 100 Dimension Case FN(0,I)
+## Gibbs Sampling Function
+```{r}
+Gibbs <- function(N,length,sigma){
+  x_seq <- matrix(0, N, length)
+  for (i in 1:N){
+    for(j in 1:length){
+      x_seq[i,j] <- FN_Sampling(1, 0, sigma[j,j])[[1]]
+    }
+  }
+  return(x_seq)
+}
+```
+
+## Input & Simulation
+```{r}
+set.seed(1010)
+sigma <- diag(seq(0.01, 1, 0.01))
+N <- 10000
+length <- 100
+t3 <- Sys.time()
+result <- Gibbs(N, length, sigma)
+t4 <- Sys.time()
+diff_t_gibbs <- round(as.numeric(t4-t3),digits = 4)
+```
+
+## Estiamte mean & var
+```{r}
+true_mean_gibbs <- sqrt(seq(0.01, 1.00, 0.01)) * sqrt(2/pi)
+true_var_gibbs <- seq(0.01, 1.00, 0.01) * (1 - 2/pi)
+est_mean_gibbs <- apply(result,2,mean)
+est_var_gibbs <- apply(result,2,var)
+scatter_gibbs <- data.frame(cbind(true_mean_gibbs, true_var_gibbs,est_mean_gibbs,est_var_gibbs))
+knitr::kable(scatter_gibbs)
+```
+
+## Visualization
+```{r}
+library(ggplot2)
+library(ggpubr)
+scatter_mean_Gibbs <-
+  ggplot(data = scatter_gibbs, aes(x = true_mean_gibbs, y = est_mean_gibbs)) + 
+  geom_point(size = 1.5, alpha = 0.55, color = "red") +
+  theme_bw() +
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(), 
+        axis.line = element_line(colour = "black"),
+        axis.title.y = element_text(margin = margin(r = 10),size = 15),
+        axis.title.x = element_text(vjust=-1,size = 15),
+        plot.title = element_text(hjust = 0.5, vjust = 0.5, face = "bold")) +
+  expand_limits(y = c(0.0, 1.0)) +
+  expand_limits(x = c(0.0, 1.0)) +
+  scale_x_continuous(breaks = seq(0.0, 1.0, 0.2), labels = c(paste0("0.0"), seq(0.2, 0.8, 0.2), paste0("1.0"))) +
+  scale_y_continuous(breaks = seq(0.0, 1.0, 0.2), labels = c(paste0("0.0"), seq(0.2, 0.8, 0.2), paste0("1.0"))) +
+  geom_abline(intercept = 0,slope = 1) +
+  xlab("True mean of the components") +
+  ylab("Sample mean of the components")
+scatter_var_Gibbs <- 
+  ggplot(data = scatter_gibbs, aes(x = true_var_gibbs, y = est_var_gibbs)) + 
+  geom_point(size = 1.5, alpha = 0.55, color = "red") +
+  theme_bw() +
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(), 
+        axis.line = element_line(colour = "black"),
+        axis.title.y = element_text(margin = margin(r = 10),size = 15),
+        axis.title.x = element_text(vjust=-1,size = 15)) +
+  expand_limits(y = c(0.0, 0.6)) +
+  expand_limits(x = c(0.0, 0.6)) +
+  scale_x_continuous(breaks = seq(0.0, 0.6, 0.1), labels = c(paste0("0.0"), seq(0.1, 0.6, 0.1))) +
+  scale_y_continuous(breaks = seq(0.0, 0.6, 0.1), labels = c(paste0("0.0"), seq(0.1, 0.6, 0.1))) +
+  geom_abline(intercept = 0, slope = 1) +
+  xlab("True variance of the components") +
+  ylab("Sample variance of the components") 
+
 
 
 
