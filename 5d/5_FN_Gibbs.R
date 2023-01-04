@@ -24,13 +24,38 @@ Indicator <- function(x){
 ###############################################################
 ## symbolic function
 ###############################################################
-s_f <- function(q, n){
-  sign <- matrix(0, n, length(q))
-  for(i in 1:n){
-    sign[i,] <- sample(c(-1,1), length(q), replace = TRUE)
-  }
-  sign <- unique(sign)
-  return(sign)
+s_f <- function(n){
+    n = as.integer(n)
+    if (n <= 0) return(NA);
+    if (n == 1) {
+        return (matrix(c(1,-1), ncol = 1));
+    }
+    if (n == 3){
+        return (matrix(c(
+             1, -1,  1,
+            -1,  1,  1,
+             1,  1,  1,
+            -1, -1,  1,
+             1, -1, -1,
+            -1,  1, -1,
+             1,  1, -1,
+            -1, -1, -1
+        ), byrow = 3, ncol = 2));
+    }
+    if (n == 2){
+        return (matrix(c(
+              1, -1,
+             -1,  1,
+              1,  1,
+             -1, -1  
+        ), byrow = 2, ncol = 2))
+        }else {
+         nn = gen_s_f(n-1);
+         return(
+             rbind(cbind(nn, 1), cbind(nn, -1))
+         );
+     }
+    return(NA);
 }
 ###############################################################
 ## symbolic matrix
