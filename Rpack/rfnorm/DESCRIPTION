@@ -1,0 +1,17 @@
+Package: rfnorm
+Type: Package
+Title: Multi-dimensional Folded Normal Random Number Generation
+Version: 1.0
+Date: 2023-01-04
+Authors: Your Name
+Authors@R: c(
+            person("Yiqiao", "Jin", role = c("aut")),
+            person("Xi", "Liu", role = "aut"),
+            person("Xiaoqing", "Pan", role = "aut"),
+            person("Yifan", "Yang",  role = c("aut", "cre", "cph"),
+                   email = "yfyang.86@hotmail.com")) 
+Description: Gibbs Sampling and Hamiltonian Monte Carlo to derive the Folded Normal random numbers.
+License: Apache 2
+Imports: methods, Rcpp (>= 1.0.9)
+LinkingTo: Rcpp
+RoxygenNote: 7.2.1
