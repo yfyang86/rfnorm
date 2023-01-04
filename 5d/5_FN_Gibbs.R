@@ -50,7 +50,7 @@ s_f <- function(n){
              -1, -1  
         ), byrow = 2, ncol = 2))
         }else {
-         nn = gen_s_f(n-1);
+         nn = s_f(n-1);
          return(
              rbind(cbind(nn, 1), cbind(nn, -1))
          );
@@ -180,7 +180,7 @@ est_corr <- function(sig1, sig2, rho){
 ###############################################################
 set.seed(1010)
 eigen <- rexp(5,0.5)
-symbolic <- s_f(1:5, 1000)
+symbolic <- s_f(5)
 com <- nrow(symbolic)
 Sigma <- genPositiveDefMat(dim = 5,
                            covMethod = "eigen",
