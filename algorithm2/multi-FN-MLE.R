@@ -86,12 +86,12 @@ loglik.G2 <- function(params, ...) {
 }
 
 
-##????figure final ?��?2ά??3άregion?۵???̬??mle
+##multi-dimensional folded normal distribution MLE 
 data1=read.csv(file="data1.csv",header=T,sep=",")
 data1=data1[,-1]
 data2=read.csv(file="data2.csv",header=T,sep=",")
 data2=data2[,-1]
-##2άregion
+##2dim region
 #########2 dim folded normal nlm
 f1=function(x,y,u1,u2,s1,s2,rho) 1/(2*pi*s1*s2*sqrt(1-rho^2))*(exp(-0.5/(1-rho^2)*((x-u1)^2/s1^2)-2*rho*(x-u1)*(y-u2)/(s1*s2)+(y-u2)^2/s2^2)+exp(-0.5/(1-rho^2)*((x+u1)^2/s1^2)-2*rho*(x+u1)*(y+u2)/(s1*s2)+(y+u2)^2/s2^2)+exp(-0.5/(1-rho^2)*((x+u1)^2/s1^2)+2*rho*(x+u1)*(y-u2)/(s1*s2)+(y-u2)^2/s2^2)+exp(-0.5/(1-rho^2)*((x-u1)^2/s1^2)+2*rho*(x-u1)*(y+u2)/(s1*s2)+(y+u2)^2/s2^2))
 minusl3=function(params,r){
@@ -115,7 +115,7 @@ for(i in 1:7){
 a1
 write.csv(a1,"a1_par.csv")
 
-##3άregion
+##3dim region
 a2_par=matrix(0,6,9)
 a2_par=as.data.frame(a2_par)
 for(i in 1:6){
