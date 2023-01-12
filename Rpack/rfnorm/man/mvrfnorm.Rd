@@ -22,6 +22,8 @@ mvrfnorm(
 
 \item{Sigma}{Variance matrix, should be postive, set checkSigma = TRUE to check the postiveness}
 
+\item{method}{"Gibbs", "HMC", "mvtnorm", default = "Gibbs"}
+
 \item{init}{initial value (matrix) for Gibbs sampler with p x chain_n dimesions. p is the variable dimension, chain_n is the number of chains.}
 
 \item{gibbs_length}{iteration length for Gibbs sampler, default = 1000}
@@ -32,6 +34,7 @@ mvrfnorm(
 }
 \value{
 sample array list
+         - method "Gibbs" or "HMC" or "mvtnorm"
 }
 \description{
 Generate multivriate Folded Normal random numbers

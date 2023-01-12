@@ -12,6 +12,7 @@ Authors@R: c(
                    email = "yfyang.86@hotmail.com")) 
 Description: Gibbs Sampling and Hamiltonian Monte Carlo to derive the Folded Normal random numbers.
 License: Apache 2
+Depends: mvtnorm
 Imports: methods, Rcpp (>= 1.0.9)
 LinkingTo: Rcpp, RcppArmadillo
 RoxygenNote: 7.2.1
