@@ -77,19 +77,12 @@ BEGIN_RCPP
 END_RCPP
 }
 
-RcppExport SEXP _rcpp_module_boot_NumEx();
-RcppExport SEXP _rcpp_module_boot_yada();
-RcppExport SEXP _rcpp_module_boot_stdVector();
-
 static const R_CallMethodDef CallEntries[] = {
     {"_rfnorm_rcpp_indicator", (DL_FUNC) &_rfnorm_rcpp_indicator, 1},
     {"_rfnorm_rcpp_FN_Sampling_2d", (DL_FUNC) &_rfnorm_rcpp_FN_Sampling_2d, 3},
     {"_rfnorm_rcpp_Gibbs_2d", (DL_FUNC) &_rfnorm_rcpp_Gibbs_2d, 5},
     {"_rfnorm_rcpp_symbolic_matrix", (DL_FUNC) &_rfnorm_rcpp_symbolic_matrix, 1},
     {"_rfnorm_rcpp_mixing_sample", (DL_FUNC) &_rfnorm_rcpp_mixing_sample, 5},
-    {"_rcpp_module_boot_NumEx", (DL_FUNC) &_rcpp_module_boot_NumEx, 0},
-    {"_rcpp_module_boot_yada", (DL_FUNC) &_rcpp_module_boot_yada, 0},
-    {"_rcpp_module_boot_stdVector", (DL_FUNC) &_rcpp_module_boot_stdVector, 0},
     {NULL, NULL, 0}
 };
 
