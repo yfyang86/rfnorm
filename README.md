@@ -167,8 +167,8 @@ check [Source Code](src.md)
 
 # TODO
 
-[ ] R package: Under development, will be released on CRAN.
-  [x] Dim = 1, re-write in `C++`
-  [ ] Dim > 1
-    [x] R code
-    [ ] `C++` TBD
+- [ ] R package: Under development, will be released on CRAN.
+- [x] Dim = 1, re-write in `C++`
+  - [ ] Dim > 1
+  - [x] R code
+  - [ ] `C++` TBD
