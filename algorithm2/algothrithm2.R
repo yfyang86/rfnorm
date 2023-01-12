@@ -2,8 +2,8 @@ rm(list=ls())
 library(MASS)
 
 ##initial steps
-a=read.csv(file="mr_sites_in_regions.csv",header=T,sep=",")
-set.seed(1010)
+a=read.csv(file="mr_sites_in_regions.csv",header=T,sep=",")##read data
+set.seed(1010)## set random seed
 
 ##remove first two chromosome columns
 data1=a[,-c(1:2)]
@@ -752,7 +752,7 @@ colnames(G3)=colnames(b)
 head(G3)
 table(G3$percentage)
 
-B2;B3;R2;R3;T2;T3;G2;G3
+
 B2$pc.=round(R2$percent,2)
 B3$pc.=round(R3$percent,2)
 R2$pc.=round(R2$percent,2)
@@ -765,7 +765,6 @@ head(R2)
 
 
 dat=rbind(B2,B3,R2,R3,T2,T3,G2,G3)
-dat
 dat$pc.=paste(dat$pc.*100,"%",sep="")
 head(dat)
 library(ggplot2)
@@ -784,6 +783,7 @@ p1=ggplot(dat,aes(x=pc.,y=SAD))+geom_boxplot(aes(fill=method),outlier.colour=NA)
 )+theme(legend.text=element_text(size=12),legend.title = element_text(size=14))
 ggsave("REMtable2.png",height=6,width=10,dpi=300,plot=p1)
 p1
+
 
 
 
