@@ -97,7 +97,7 @@ sample_p1 <- sample_p2 <- 0
 Chain_all <- list(Chain1 = 0, Chain2 = 0, Chain3 = 0, Chain4 = 0)
 t_start <- Sys.time()
 for(j in 1:Chain_n){
-  result = Gibbs(N,x_init,sig1,sig2,rho)
+  result = rcpp_Gibbs_2d(N,x_init,sig1,sig2,rho)
   Chain_all[[j]] <- result
   if(j == 1){
     sample_p1 <- result[,1]
