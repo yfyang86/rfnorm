@@ -194,18 +194,16 @@ double rcpp_mixing_sample(int N, int d, int pos, NumericVector x, arma::mat Sigm
     }
     }
 
-    arma::vec normal_con_cum_prb = normal_con;
-    for(int i = 1; i < com ; ++i){
-        normal_con_cum_prb(i) = normal_con_cum_prb(i-1) + normal_con_cum_prb(i);
-    }
-    normal_con_cum_prb = normal_con_cum_prb/(normal_con_cum_prb(com-1));
-    
     double rng = runif(1, 0, 1)(0);
-    int choice = 0;
+    int choice = 1;
+    if( rng >=normal_con(0)){
     for(; choice < com; choice++){
-        if(rng < normal_con_cum_prb(choice)) break;
+       normal_con(choice) +=  normal_con(choice-1);  
+        if(rng < normal_con(choice)) break;
     }
-
+    }else{
+    choice = 0;
+    }
 
     double sig = det / det_e ;
     arma::vec Sigma_ac_Vec(d-1, arma::fill::zeros);

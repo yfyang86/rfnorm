@@ -163,3 +163,12 @@ check [Source Code](src.md)
 | **Trace Plot** |  ![](./fig/media/image8.png) |
 | **Ergodic Mean Plot** | ![](./fig/media/image9.png) |
 | **ACF Plot** | ![](./fig/media/image10.png)|
+
+
+# TODO
+
+[ ] R package: Under development, will be released on CRAN.
+  [x] Dim = 1, re-write in `C++`
+  [ ] Dim > 1
+    [x] R code
+    [ ] `C++` TBD
