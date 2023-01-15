@@ -76,6 +76,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_Gibbs_nd
+arma::mat rcpp_Gibbs_nd(int N, NumericVector x_init, arma::mat Sig);
+RcppExport SEXP _rfnorm_rcpp_Gibbs_nd(SEXP NSEXP, SEXP x_initSEXP, SEXP SigSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type N(NSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type x_init(x_initSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type Sig(SigSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_Gibbs_nd(N, x_init, Sig));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_rfnorm_rcpp_indicator", (DL_FUNC) &_rfnorm_rcpp_indicator, 1},
@@ -83,6 +96,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_rfnorm_rcpp_Gibbs_2d", (DL_FUNC) &_rfnorm_rcpp_Gibbs_2d, 5},
     {"_rfnorm_rcpp_symbolic_matrix", (DL_FUNC) &_rfnorm_rcpp_symbolic_matrix, 1},
     {"_rfnorm_rcpp_mixing_sample", (DL_FUNC) &_rfnorm_rcpp_mixing_sample, 5},
+    {"_rfnorm_rcpp_Gibbs_nd", (DL_FUNC) &_rfnorm_rcpp_Gibbs_nd, 3},
     {NULL, NULL, 0}
 };
 

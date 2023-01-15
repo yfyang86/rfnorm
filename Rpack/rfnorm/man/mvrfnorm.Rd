@@ -49,7 +49,6 @@ init=matrix(c(
     0.5, 1.5,
     0.5, 1.5,
     1.5, 0.5,
-    1.5,1.5
-    ), ncol = 2),
-gibbs_chain =  4)
+    1.5, 1.5
+    ), byrow = TRUE, ncol = 2), gibbs_chain =  4)
 }
