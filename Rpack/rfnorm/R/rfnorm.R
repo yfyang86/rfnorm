@@ -21,12 +21,11 @@
 #'     0.5, 1.5,
 #'     0.5, 1.5,
 #'     1.5, 0.5,
-#'     1.5,1.5
-#'     ), ncol = 2),
-#' gibbs_chain =  4)
-mvrfnorm <- function(n, mu, Sigma, method="Gibbs", 
-                    init = matrix(rep(0.5, length(mu)*4), nrow = 4), 
-                    gibbs_length=1000, gibbs_chain = 4, 
+#'     1.5, 1.5
+#'     ), byrow = TRUE, ncol = 2), gibbs_chain =  4)
+mvrfnorm <- function(n, mu, Sigma, method = "Gibbs",
+                    init = matrix(rep(0.5, length(mu) * 4), nrow = 4),
+                    gibbs_length = 1000, gibbs_chain = 4,
                     checkSigma = FALSE){
 if (sum(method %in% c("Gibbs", "HMC", "mvtnorm")) != 1){
     method <- "Gibbs"
