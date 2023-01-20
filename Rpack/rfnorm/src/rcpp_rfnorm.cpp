@@ -247,44 +247,54 @@ arma::mat rcpp_Gibbs_nd(int N, NumericVector x_init, arma::mat Sig){
     int p = x_init.size();
     arma::mat x_seq(N, p, arma::fill::zeros);
     std::vector<NumericVector> x_seq_ar;
-    x_seq_ar.resize(p-1);
+    x_seq_ar.resize(p);
     int jj;
-    for (int i = 0; i < (p-1); i++){
-         for (int j = 0; j < (p-1); j++) x_seq_ar[i].push_back(0);
+    for (int i = 0; i < p; i++){
+         for (int j = 0; j < (p-1); j++) {
+             x_seq_ar[i].push_back(0);
+         }
     }
+
     for (int i = 0; i < p; i++){
         x_seq(0,i) = x_init(i);
     }
+
+
+
     for (int i = 1; i < N; i++){
-        for (int ii = 0; ii < (p-1); ii++){
+        for (int ii = 0; ii < p; ii++){
             jj = 0;
             /*
             Gibbs: init 0
             */
             if (ii  == 0){
-                for (int j = 0; j < p; j++) {
-                if(j != ii) {
-                    x_seq_ar[ii][jj] = x_seq(i-1, j+1);
-                    jj ++;
-                }}
+                jj = 0;
+                for (int j =1; j < (p-1); j++) {
+                // j != ii; here ii == 0
+                x_seq_ar[ii](jj) = x_seq(i-1, j+1);
+                jj++;
+                }
             }
             /*
             Gibbs: 0 <  ... < (p-1)
             */
-            if (ii < (p-1) ){/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            if (ii > 0 & ii < (p-1) ){/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+                jj = 0;
                 for (int j = 0; j < ii; j++) {
-                    x_seq_ar[ii][jj] = x_seq(i, j);
-                    jj ++;
+                    x_seq_ar[ii](jj) = x_seq(i, j);
+                    jj++;
                 }
+                jj = ii-1;
                 for (int j = ii; j < p; j++){
-                     x_seq_ar[ii][jj] = x_seq_ar[0](i, j);
-                    jj ++;
+                    x_seq_ar[ii](jj) = x_seq(i, j);
+                    jj++;
                 }
             }
             /*
             Gibbs: Last p-1
             */
             if (ii == (p-1)){
+                jj = 0;
                  for (int j = 0; j < (p-1); j++){
                      x_seq_ar[p-1][j] = x_seq(i, j);
                  }

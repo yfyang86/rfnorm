@@ -2,14 +2,14 @@
 % Please edit documentation in R/RcppExports.R
 \name{rcpp_Gibbs_nd}
 \alias{rcpp_Gibbs_nd}
-\title{Generate the Symbolic Matrix for Folded Normal}
+\title{Generate Multivariate (p>2) Gibbs Sampler}
 \usage{
 rcpp_Gibbs_nd(N, x_init, Sig)
 }
 \arguments{
 \item{N}{Gibbs runs}
 
-\item{x_init}{initial value of length p}
+\item{x_init}{initial value of length p, p > 2}
 
 \item{Sig}{}
 }
@@ -17,5 +17,5 @@ rcpp_Gibbs_nd(N, x_init, Sig)
 Gibbs samples matrix of N * p
 }
 \description{
-Generate the Symbolic Matrix for Folded Normal
+Generate Multivariate (p>2) Gibbs Sampler
 }

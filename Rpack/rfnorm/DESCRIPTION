@@ -1,7 +1,7 @@
 Package: rfnorm
 Type: Package
 Title: Multi-dimensional Folded Normal Random Number Generation
-Version: 1.0
+Version: 1.0.2
 Date: 2023-01-04
 Authors: Your Name
 Authors@R: c(

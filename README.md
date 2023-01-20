@@ -221,7 +221,124 @@ Chain_erg %>%
 
 ```
 
+# An end-to-end example for 5 dimesional case
 
+Here we use `rfnorm` to generate 5  dimensional random numbers and draw its Ergodic Mean Plot.
+
+```R
+
+####Gibbs: dimensionn 5d ####
+library(rfnorm)
+
+#### Settings 
+p = 5
+mu = c(0,0,0,0,0)
+Sigma = matrix(c(
+ 2.03699158, -0.08862598, -1.5803865,  0.3423154547,  0.1208288993,
+-0.08862598,  3.82704768, -0.1008578, -0.0340634734, -0.0180624431,
+-1.58038655, -0.10085779,  1.8784891, -0.6122898668, -0.3254919283,
+ 0.34231545, -0.03406347, -0.6122899,  0.7448752820,  0.0008840939,
+ 0.12082890, -0.01806244, -0.3254919,  0.0008840939,  0.9116069671), 
+ byrow = T, nrow = 5
+)
+gibbs_chain = 4
+sample_size = 1000
+init_mat = matrix(c(
+    0.5, 0.5, 1.5, 1.5, 1.0, 
+    1.0, 1.5,0.5,1.0, 0.5,
+    1.5, 1.0, 1.0, 0.5, 1.5, 
+    1.0, 0.5,1.0, 1.0, 1.5
+), byrow = T, nrow=4)
+
+
+
+sample_array = mvrfnorm(sample_size,
+    mu, Sigma, gibbs_length = 1e4, 
+    init = init_mat, gibbs_chain = 4)$value
+
+#### Plot
+
+library(MASS)
+library(clusterGeneration)
+library(base)
+library(dplyr)
+library(rstanarm)
+library(bayesplot)
+library(ggplot2)
+library(purrr)
+library(tidyr)
+library(reshape2)
+library(latex2exp)
+library(ggpubr)
+library(hexbin)
+
+Chain_Para_erg_list = list()
+
+for (i in 1:p){
+    Chain_Para_erg_list[[paste("para", i, sep = '')]] <- (
+        sample_array[,,i] %>%
+          as.data.frame() %>%
+          mutate(Iteration=seq_len(sample_size)) %>%
+          melt(id.vars = "Iteration", measure.vars = paste0("chain:", 1:gibbs_chain),
+               variable.name = "Chain", value.name = "Para") %>%
+          group_by(Chain) %>%
+          mutate(ergodic_mean = cumsum(Para)/seq_len(sample_size),
+                  Theta = paste("theta", i, sep = '')) %>%
+          as.data.frame()
+    )
+}
+
+Chain_erg <- 
+  Chain_Para_erg_list[["para1"]] %>% 
+  rbind(Chain_Para_erg_list[["para2"]]) %>%
+  rbind(Chain_Para_erg_list[["para3"]]) %>%
+  rbind(Chain_Para_erg_list[["para4"]]) %>%
+  rbind(Chain_Para_erg_list[["para5"]]) %>%
+  mutate(Theta_c = recode(Theta,
+                          "theta1" = "theta[1]",
+                          "theta2" = "theta[2]",
+                          "theta3" = "theta[3]",
+                          "theta4" = "theta[4]",
+                          "theta5" = "theta[5]")
+  )
+
+
+Chain_erg_Gibbs <-
+  Chain_erg %>%
+  group_by(Chain) %>%
+  # top_n(n = -10000, wt = Iteration) %>%
+  ggplot(aes(x=Iteration, y=ergodic_mean, colour=Chain, group=Chain)) +
+  facet_grid(rows = vars(Theta_c), labeller = label_parsed) +
+  labs(title = "Gibbs Sampling") +
+  geom_line() +
+  theme_minimal(base_size = 14) +
+  # geom_hline(aes(yintercept = sqrt(2/pi)), linetype = 5, size = 0.3) +
+  theme(panel.grid.major =element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        axis.line = element_line(colour = "black"),
+        strip.background = element_rect(
+          color = "white", fill = "white"),
+        panel.grid = element_blank(),
+        legend.key = element_rect(
+          color = "white", 
+          fill = "white"),
+        strip.text.y = element_text(size = 15,angle = 0),
+        plot.title = element_text(hjust = 0.5, vjust = 0.5, face = "bold")) +
+  theme(axis.title.x = element_text(vjust = -0.1),
+        axis.title.y = element_text(margin = margin(r = 15))) +
+  theme(legend.key = element_rect(color = NA, fill = NA),
+        legend.key.size = unit(35, "pt")) +
+  theme(legend.title.align = 0.5) +
+  ylab("Ergo Mean") +
+  xlab("Iterations") +
+  scale_color_discrete(labels = c(expression(paste(theta^(0)==symbol(J)[1])),
+                                  expression(paste(theta^(0)==symbol(J)[2])),
+                                  expression(paste(theta^(0)==symbol(J)[3])),
+                                  expression(paste(theta^(0)==symbol(J)[4])))) 
+
+Chain_erg_Gibbs
+```
 
 # R Source Code for 2 and more dimensions
 
@@ -261,8 +378,8 @@ Check [here](./algorithm2/algorithm2.md) for more details.
 - [ ] R package: Under development, will be released on CRAN.
 - [ ] Dim > 1, re-write in `C++`
   - [x] Dim == 2 in `C++`
-  - [ ] Dim >= 3 in `C++`
-  - [ ] Imputations
+  - [x] Dim >= 3 in `C++`
+  - [x] Imputations
   - [ ] Unitest
   - [ ] Vignettes
 - [ ] More documentations
