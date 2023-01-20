@@ -40,7 +40,7 @@ s_f <- function(n){
             -1,  1, -1,
              1,  1, -1,
             -1, -1, -1
-        ), byrow = 3, ncol = 2));
+        ), byrow = T, ncol = 3));
     }
     if (n == 2){
         return (matrix(c(
@@ -48,7 +48,7 @@ s_f <- function(n){
              -1,  1,
               1,  1,
              -1, -1  
-        ), byrow = 2, ncol = 2))
+        ), byrow = T, ncol = 2))
         }else {
          nn = s_f(n-1);
          return(

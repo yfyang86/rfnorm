@@ -40,6 +40,8 @@ sample array list
 Generate multivriate Folded Normal random numbers
 }
 \examples{
+set.seed(1234)
+#### Dimension == 2 ####
 ux = matrix(rnorm(4), 2, 2)
 Sig = ux \%*\% t(ux)
 sample_array = mvrfnorm(100,
@@ -49,7 +51,31 @@ init=matrix(c(
     0.5, 1.5,
     0.5, 1.5,
     1.5, 0.5,
-    1.5,1.5
-    ), ncol = 2),
-gibbs_chain =  4)
+    1.5, 1.5
+    ), byrow = TRUE, ncol = 2), gibbs_chain =  4)
+
+########################
+#### Dimension == 5 ####
+########################
+p = 5
+mu = c(0,0,0,0,0)
+Sigma = matrix(c(
+ 2.03699158, -0.08862598, -1.5803865,  0.3423154547,  0.1208288993,
+-0.08862598,  3.82704768, -0.1008578, -0.0340634734, -0.0180624431,
+-1.58038655, -0.10085779,  1.8784891, -0.6122898668, -0.3254919283,
+ 0.34231545, -0.03406347, -0.6122899,  0.7448752820,  0.0008840939,
+ 0.12082890, -0.01806244, -0.3254919,  0.0008840939,  0.9116069671), 
+ byrow = T, nrow = 5
+)
+gibbs_chain = 4
+sample_size = 1000
+init_mat = matrix(c(
+    0.5, 0.5, 1.5, 1.5, 1.0, 
+    1.0, 1.5,0.5,1.0, 0.5,
+    1.5, 1.0, 1.0, 0.5, 1.5, 
+    1.0, 0.5,1.0, 1.0, 1.5
+), byrow = T, nrow=4)
+sample_array = mvrfnorm(sample_size,
+  mu, Sigma, gibbs_length = 1000, 
+  init = init_mat, gibbs_chain = 4)$value
 }

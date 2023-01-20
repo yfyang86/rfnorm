@@ -34,3 +34,13 @@ rcpp_mixing_sample <- function(N, d, pos, x, Sigma) {
     .Call(`_rfnorm_rcpp_mixing_sample`, N, d, pos, x, Sigma)
 }
 
+#' Generate Multivariate (p>2) Gibbs Sampler
+#'
+#' @param N Gibbs runs
+#' @param x_init initial value of length p, p > 2
+#' @param Sig 
+#' @return Gibbs samples matrix of N * p
+rcpp_Gibbs_nd <- function(N, x_init, Sig) {
+    .Call(`_rfnorm_rcpp_Gibbs_nd`, N, x_init, Sig)
+}
+
