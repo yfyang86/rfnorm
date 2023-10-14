@@ -106,7 +106,9 @@ est_helper.G2(result$par, method = "chole")[["sigma2"]]
 ## [2,] 0.3998349 3.2814058
 ```
 
-# 2d FN MLE simulation
+# Multi-dimensional case
+
+## 2d FN MLE simulation
 
 One could change the settings to the following value and try again.
 
@@ -172,7 +174,7 @@ The coverage rate of parameters are:
 |20 |1000      |0.68     |0.67         |0.71         |0.75       |0.69     |
 
 
-# 4d FN MLE simulation
+## 4d FN MLE simulation
 
 We should point out that the speed of dim = 4 is much slower than dim = 2.
 
